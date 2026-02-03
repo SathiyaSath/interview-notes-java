@@ -1,0 +1,18 @@
+## What is ClickHouse?
+ClickHouse is a column-oriented OLAP database designed for fast analytical queries on large datasets.
+
+👉 Used for analytics, reporting, logs, metrics.
+
+---
+
+## OLTP vs OLAP
+OLTP = frequent small writes (MySQL)
+OLAP = large read queries (ClickHouse)
+
+---
+
+## Why ClickHouse is fast?
+- Column-based storage
+- Data compression
+- Vectorized query execution
+- Sparse indexes
