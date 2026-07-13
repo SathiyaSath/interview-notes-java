@@ -8,7 +8,7 @@ Think of them as **toolkits** that help developers build and structure their cod
 
 # Spring
 
-Spring is a comprehensive Java framework that provides various modules for building different types of applications.
+Spring is a comprehensive(விரிவான) Java framework that provides various modules for building different types of applications.
 
 Think of Spring as a **giant toolbox** containing every tool you might need to build enterprise applications.
 
@@ -162,3 +162,308 @@ Within the Spring ecosystem, however, the two terms are commonly used interchang
 Learn more about Spring's IoC Container in the official Spring Framework documentation:
 
 https://docs.spring.io/spring-framework/reference/core/beans/introduction.html
+
+--------------------------------------------------------------------------------------------------------
+
+What is an API Contract?
+
+An API Contract is an agreement between the API Provider (Backend) and the API Consumer (Frontend, Mobile App, or another Service).
+
+Think of it like a contract between a customer and a restaurant.
+
+Restaurant Contract:
+
+Customer orders food.
+Restaurant prepares the food.
+Restaurant returns the food.
+If the item is unavailable, the restaurant informs the customer.
+
+Both sides know what to expect.
+
+The same idea applies to APIs.
+
+Example
+
+Imagine you're building a Jewellery website.
+
+Frontend
+
+The React application wants product details.
+
+It sends:
+
+GET /products/10
+
+The backend understands:
+
+"The customer wants product ID 10."
+
+The backend responds:
+
+{
+    "id":10,
+    "name":"Gold Ring",
+    "price":25000
+}
+
+This response format is part of the API Contract.
+
+What does the contract define?
+
+An API contract specifies:
+
+URL (Endpoint)
+HTTP Method
+Request Data
+Response Data
+Status Codes
+Error Messages
+Example Contract
+Request
+GET /products/10
+
+Method
+
+GET
+
+Request Body
+
+None
+Success Response
+
+Status
+
+200 OK
+
+Body
+
+{
+    "id":10,
+    "name":"Gold Ring",
+    "price":25000
+}
+Product Not Found
+
+Status
+
+404 NOT FOUND
+
+Body
+
+{
+   "message":"Product not found"
+}
+Unauthorized User
+
+Status
+
+401 UNAUTHORIZED
+
+Body
+
+{
+   "message":"Please login"
+}
+
+Everything above is the API Contract.
+
+API Provider
+
+The provider is the backend.
+
+Example
+
+Spring Boot application
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+
+    @GetMapping("/{id}")
+    public Product getProduct(@PathVariable Long id){
+
+    }
+
+}
+
+This application provides the API.
+
+API Consumer
+
+The consumer is whoever calls the API.
+
+Examples
+
+React Application
+Angular
+Flutter App
+Android App
+iOS App
+Another Spring Boot Microservice
+
+Example
+
+React
+
+fetch("/products/10")
+
+The React application is consuming the API.
+
+Why API Contracts are Important?
+
+Imagine the frontend developer expects
+
+{
+   "id":10,
+   "name":"Ring",
+   "price":25000
+}
+
+But the backend sends
+
+{
+   "productId":10,
+   "productName":"Ring",
+   "amount":25000
+}
+
+The frontend will fail because the agreed structure changed.
+
+That's why both teams agree on the contract before development.
+
+What is JSON?
+
+JSON stands for
+
+JavaScript Object Notation
+
+It is simply a text format for exchanging data.
+
+Example
+
+{
+   "id":99,
+   "amount":123.45
+}
+
+Everything is represented as key-value pairs.
+
+id → 99
+
+amount → 123.45
+Jewellery Example
+{
+    "id":1,
+    "name":"Diamond Ring",
+    "price":55000,
+    "stock":12
+}
+
+Keys
+
+id
+name
+price
+stock
+
+Values
+
+1
+Diamond Ring
+55000
+12
+JSON Array
+
+Multiple products
+
+[
+   {
+      "id":1,
+      "name":"Ring"
+   },
+   {
+      "id":2,
+      "name":"Necklace"
+   }
+]
+Spring Boot automatically converts Java objects into JSON
+
+Java Object
+
+public class Product{
+
+    private Long id;
+    private String name;
+    private Double price;
+
+}
+
+Spring Boot returns
+
+{
+   "id":1,
+   "name":"Gold Ring",
+   "price":25000
+}
+
+This conversion is called Serialization (Java Object → JSON).
+
+Similarly, when Spring Boot receives JSON and converts it into a Java object, it's called Deserialization.
+
+Incoming JSON
+
+{
+    "name":"Gold Ring",
+    "price":25000
+}
+
+Spring Boot
+
+@PostMapping
+public Product create(@RequestBody Product product){
+
+}
+
+Spring converts the JSON into a Product object automatically.
+
+HTTP Status Codes
+Status	Meaning
+200 OK	Request successful
+201 CREATED	Resource created successfully
+204 NO CONTENT	Success, but nothing to return
+400 BAD REQUEST	Invalid input
+401 UNAUTHORIZED	User not authenticated
+403 FORBIDDEN	User authenticated but lacks permission
+404 NOT FOUND	Resource not found
+500 INTERNAL SERVER ERROR	Server-side error
+Complete Flow
+React Website
+      │
+      │ GET /products/10
+      ▼
+Spring Boot REST API
+      │
+      │ Fetch from Database
+      ▼
+MySQL
+      │
+      │ Product Found
+      ▼
+Spring Boot
+      │
+      │ Convert Java Object → JSON
+      ▼
+HTTP 200 OK
+
+{
+   "id":10,
+   "name":"Gold Ring",
+   "price":25000
+}
+Summary
+API Contract: The agreed specification that defines how clients and servers communicate (URLs, methods, request/response formats, and status codes).
+API Provider: The backend service (for example, your Spring Boot application) that exposes the API.
+API Consumer: Any application that calls the API, such as a React frontend, a mobile app, or another backend service.
+JSON: The most common format used to exchange data between the provider and consumer.
+Serialization: Converting a Java object into JSON before sending it in the response.
+Deserialization: Converting incoming JSON into a Java object when processing a request.
