@@ -1,0 +1,164 @@
+# Spring and Spring Boot
+
+Spring and Spring Boot are both Java frameworks used to build applications.
+
+Think of them as **toolkits** that help developers build and structure their code in an efficient and scalable way.
+
+---
+
+# Spring
+
+Spring is a comprehensive Java framework that provides various modules for building different types of applications.
+
+Think of Spring as a **giant toolbox** containing every tool you might need to build enterprise applications.
+
+For example, while building the **Family Cash Card API**, we use:
+
+* **Spring MVC** – For building the web application and REST APIs.
+* **Spring Data** – For accessing and managing data from the database.
+* **Spring Security** – For authentication and authorization.
+
+### Advantages of Spring
+
+* Comprehensive enterprise framework.
+* Highly flexible and modular.
+* Supports web applications, REST APIs, security, database access, batch processing, and more.
+* Easy integration with third-party libraries and databases.
+
+### Limitation of Spring
+
+This versatility comes at a cost.
+
+Setting up a Spring application requires a significant amount of configuration. Developers need to manually configure various components of the framework before the application is ready to run.
+
+---
+
+# Spring Boot
+
+Fortunately, **Spring Boot** makes working with Spring much simpler.
+
+Spring Boot is an **opinionated version of Spring**, meaning it provides sensible default configurations and follows best practices.
+
+Spring Boot offers several features that simplify development:
+
+* Provides many pre-configured settings.
+* Includes commonly used dependencies through Starter Projects.
+* Reduces the need for manual configuration.
+* Makes it easy to get started quickly.
+* Includes an embedded web server (Tomcat by default), allowing applications to run without installing an external server.
+
+As a result, developers can focus on writing business logic instead of spending time configuring the application.
+
+---
+
+# Spring vs Spring Boot
+
+| Spring                             | Spring Boot                             |
+| ---------------------------------- | --------------------------------------- |
+| Complete Java Framework            | Extension built on top of Spring        |
+| Requires more manual configuration | Provides auto-configuration             |
+| Flexible and highly customizable   | Opinionated with sensible defaults      |
+| External server may be required    | Embedded Tomcat/Jetty/Undertow included |
+| More setup time                    | Quick project setup                     |
+
+---
+
+# Summary
+
+**Spring** is a powerful and comprehensive framework that provides maximum flexibility for building enterprise applications. However, it requires considerable configuration before an application can run.
+
+**Spring Boot** simplifies Spring development by providing auto-configuration, starter dependencies, and an embedded web server, allowing developers to build applications quickly with minimal configuration.
+
+---
+
+# Spring's Inversion of Control (IoC) Container
+
+Spring Boot takes advantage of **Spring Core's Inversion of Control (IoC) Container**.
+
+This is one of the most important features of the Spring Framework and is used extensively while building applications such as the **Family Cash Card API**.
+
+The IoC Container is responsible for:
+
+* Creating objects (Beans)
+* Managing the lifecycle of objects
+* Injecting dependencies
+* Managing communication between application components
+
+Instead of creating objects manually, Spring creates and manages them automatically.
+
+---
+
+# Configuring Dependencies
+
+Spring Boot allows you to configure **how and when dependencies are provided** to your application at runtime.
+
+This gives you flexibility to run the same application in different environments.
+
+For example:
+
+* Local Development → MySQL Database
+* Testing Environment → H2 Database
+* Production Environment → PostgreSQL Database
+
+Your application code should not contain database-specific logic.
+
+Instead, Spring Boot uses external configuration files (such as `application.properties` or `application.yml`) to determine which database should be used.
+
+This allows the same codebase to work in multiple environments without modification.
+
+---
+
+# Example
+
+Suppose you use:
+
+**Development**
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/cashcard
+```
+
+**Production**
+
+```properties
+spring.datasource.url=jdbc:postgresql://server/cashcard
+```
+
+Only the configuration changes.
+
+The Java code remains exactly the same.
+
+---
+
+# Inversion of Control (IoC) vs Dependency Injection (DI)
+
+The terms **Inversion of Control (IoC)** and **Dependency Injection (DI)** are often used interchangeably, but they are not exactly the same.
+
+* **Inversion of Control (IoC)** is a design principle where the framework controls the creation and lifecycle of objects instead of the application.
+* **Dependency Injection (DI)** is one technique used to achieve IoC by automatically providing required dependencies to classes.
+
+In the Spring community, developers commonly say that dependencies are **"injected"** into applications at runtime.
+
+Although many programming languages and frameworks support IoC, they may not use the term **Dependency Injection**.
+
+Within the Spring ecosystem, however, the two terms are commonly used interchangeably.
+
+---
+
+# Key Points
+
+* Spring is a comprehensive Java framework.
+* Spring Boot is built on top of Spring.
+* Spring Boot minimizes configuration through auto-configuration.
+* Spring Boot includes an embedded web server.
+* Spring applications use the IoC Container to manage objects.
+* Dependency Injection is the mechanism used by Spring to provide required dependencies automatically.
+* External configuration enables the same application to run in different environments without changing the source code.
+
+---
+
+# Official Documentation
+
+Learn more about Spring's IoC Container in the official Spring Framework documentation:
+
+https://docs.spring.io/spring-framework/reference/core/beans/introduction.html
